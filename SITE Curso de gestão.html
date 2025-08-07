@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Gestão Educacional - Apoio Presencial Especializado</title>
+    <!-- Inclui o Tailwind CSS para estilização -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Define a fonte Inter para uma melhor legibilidade -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Configuração personalizada do Tailwind */
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .bg-gradient-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .bg-gradient-success {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        /* Estilos básicos para o corpo e contêiner */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #2d3748;
+            min-height: 100vh;
+        }
+        
+        /* Barra de navegação fixa */
+        .navbar {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Container principal */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Cards aprimorados */
+        .enhanced-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .enhanced-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Botões personalizados para escolas */
+        .school-btn {
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            min-width: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .school-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .school-btn:hover::before {
+            left: 100%;
+        }
+        
+        .school-btn-maria {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .school-btn-maria:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+        
+        .school-btn-dolores {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4);
+        }
+        
+        .school-btn-dolores:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(240, 147, 251, 0.6);
+        }
+        
+        /* Botão de comparação */
+        .compare-btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 1.25rem 3rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.4);
+        }
+        
+        .compare-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(79, 172, 254, 0.6);
+        }
+        
+        /* Seção de apoio presencial */
+        .support-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 25px;
+            padding: 3rem;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .support-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: rotate(45deg);
+        }
+        
+        /* Spinner aprimorado */
+        .enhanced-spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-left-color: #ffffff;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Simulador interativo */
+        .simulator-card {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        /* Métricas visuais */
+        .metric-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+        
+        .metric-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 1rem;
+            }
+            
+            .enhanced-card {
+                padding: 1.5rem;
+            }
+            
+            .support-section {
+                padding: 2rem;
+            }
+        }
+        
+        /* Animações */
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Scroll suave */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Barra de navegação fixa -->
+        <nav class="navbar fixed top-0 left-0 right-0 z-50 px-6 py-4">
+            <div class="flex justify-between items-center max-w-7xl mx-auto">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-graduation-cap text-2xl text-indigo-600"></i>
+                    <h1 class="text-xl font-bold text-gray-800">Portal de Gestão Educacional</h1>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#home" class="text-gray-700 hover:text-indigo-600 transition-colors">Início</a>
+                    <a href="#support" class="text-gray-700 hover:text-indigo-600 transition-colors">Apoio Presencial</a>
+                    <a href="#schools" class="text-gray-700 hover:text-indigo-600 transition-colors">Escolas</a>
+                    <a href="#simulator" class="text-gray-700 hover:text-indigo-600 transition-colors">Simulador</a>
+                </div>
+                <button class="md:hidden">
+                    <i class="fas fa-bars text-xl text-gray-700"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Espaçamento para navbar fixa -->
+        <div class="h-20"></div>
+
+        <!-- Seção Hero -->
+        <section id="home" class="text-center mb-12 fade-in">
+            <div class="enhanced-card">
+                <div class="flex justify-center mb-6">
+                    <div class="bg-gradient-primary p-4 rounded-full">
+                        <i class="fas fa-school text-4xl text-white"></i>
+                    </div>
+                </div>
+                <h1 class="text-5xl font-bold text-gray-800 mb-4">Portal de Gestão Educacional</h1>
+                <p class="text-xl text-gray-600 mb-6">Transformando a educação através do apoio presencial especializado</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                    <div class="text-center">
+                        <div class="bg-gradient-success p-3 rounded-full w-16 h-16 mx-auto mb-3 flex items-center justify-center">
+                            <i class="fas fa-users text-white text-xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">Apoio Presencial</h3>
+                        <p class="text-gray-600 text-sm">Suporte direto e personalizado</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-gradient-primary p-3 rounded-full w-16 h-16 mx-auto mb-3 flex items-center justify-center">
+                            <i class="fas fa-chart-line text-white text-xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">Análise Comparativa</h3>
+                        <p class="text-gray-600 text-sm">Compare características das escolas</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-gradient-secondary p-3 rounded-full w-16 h-16 mx-auto mb-3 flex items-center justify-center">
+                            <i class="fas fa-cogs text-white text-xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800">Gestão Inteligente</h3>
+                        <p class="text-gray-600 text-sm">Ferramentas para otimizar resultados</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Apoio Presencial -->
+        <section id="support" class="support-section fade-in">
+            <div class="relative z-10">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-handshake text-4xl mr-4"></i>
+                    <div>
+                        <h2 class="text-3xl font-bold mb-2">Apoio Presencial Especializado</h2>
+                        <p class="text-xl opacity-90">O diferencial que transforma a gestão educacional</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">
+                            <i class="fas fa-star mr-2"></i>
+                            Por que o apoio presencial é fundamental?
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle mt-1 mr-3 text-green-300"></i>
+                                <span><strong>Pedagogia da Presença:</strong> Acompanhamento direto e contínuo de alunos e professores</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle mt-1 mr-3 text-green-300"></i>
+                                <span><strong>Intervenção Imediata:</strong> Resolução rápida de conflitos e dificuldades</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle mt-1 mr-3 text-green-300"></i>
+                                <span><strong>Conhecimento Individual:</strong> Cada aluno é conhecido pelo nome e características</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle mt-1 mr-3 text-green-300"></i>
+                                <span><strong>Engajamento da Comunidade:</strong> Mobilização efetiva de pais e responsáveis</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">
+                            <i class="fas fa-trophy mr-2"></i>
+                            Resultados Comprovados
+                        </h3>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span>Frequência Escolar</span>
+                                    <span class="font-semibold">91%</span>
+                                </div>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 91%;"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span>Redução de Indisciplina</span>
+                                    <span class="font-semibold">100%</span>
+                                </div>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 100%;"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span>Engajamento dos Pais</span>
+                                    <span class="font-semibold">85%</span>
+                                </div>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 85%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção com os cartões das escolas -->
+        <section id="schools" class="mb-12 fade-in">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Explore as Escolas</h2>
+                <p class="text-lg text-gray-600">Conheça em detalhes as características e estratégias de cada instituição</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Cartão da Escola 1: PEI Maria das Dores Viana -->
+                <div class="enhanced-card">
+                    <div class="text-center mb-6">
+                        <div class="bg-gradient-primary p-4 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                            <i class="fas fa-school text-2xl text-white"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-2">PEI Maria das Dores Viana</h2>
+                        <p class="text-gray-600">Escola de Programa Ensino Integral - Eldorado, Vale do Ribeira</p>
+                        
+                        <!-- Características rápidas -->
+                        <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+                            <div class="bg-blue-50 p-3 rounded-lg">
+                                <i class="fas fa-users text-blue-600 mb-1"></i>
+                                <div class="font-semibold text-blue-800">140 alunos</div>
+                                <div class="text-blue-600">Jornada integral</div>
+                            </div>
+                            <div class="bg-green-50 p-3 rounded-lg">
+                                <i class="fas fa-clock text-green-600 mb-1"></i>
+                                <div class="font-semibold text-green-800">9 horas</div>
+                                <div class="text-green-600">Por dia</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Botão personalizado para Maria das Dores -->
+                    <button id="showMariaDoresBtn" class="school-btn school-btn-maria w-full mb-4">
+                        <i class="fas fa-info-circle"></i>
+                        <span id="mariaDoresBtnText">Explorar Detalhes</span>
+                        <div id="mariaDoresSpinner" class="enhanced-spinner hidden"></div>
+                    </button>
+                    
+                    <!-- Conteúdo detalhado da Escola 1 (inicialmente oculto) -->
+                    <div id="mariaDoresContent" class="hidden fade-in">
+                        <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg mb-4">
+                            <h3 class="font-semibold text-gray-800 mb-2">
+                                <i class="fas fa-lightbulb mr-2 text-yellow-500"></i>
+                                Resumo Executivo
+                            </h3>
+                            <p class="text-gray-700 whitespace-pre-line" id="mariaDoresSummary"></p>
+                        </div>
+                        
+                        <div class="border-t pt-4">
+                            <details class="cursor-pointer">
+                                <summary class="font-semibold text-gray-700 mb-2 hover:text-indigo-600">
+                                    <i class="fas fa-file-alt mr-2"></i>
+                                    Ver Documento Completo
+                                </summary>
+                                <div class="bg-gray-50 p-4 rounded-lg mt-2 max-h-64 overflow-auto">
+                                    <pre class="text-sm text-gray-600 whitespace-pre-wrap" id="mariaDoresOriginalText"></pre>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cartão da Escola 2: E.E. Profª Dolores Belém Novaes -->
+                <div class="enhanced-card">
+                    <div class="text-center mb-6">
+                        <div class="bg-gradient-secondary p-4 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                            <i class="fas fa-university text-2xl text-white"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-2">E.E. Profª Dolores Belém Novaes</h2>
+                        <p class="text-gray-600">Escola Estadual PEI - Pontal, Sertãozinho</p>
+                        
+                        <!-- Características rápidas -->
+                        <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+                            <div class="bg-pink-50 p-3 rounded-lg">
+                                <i class="fas fa-users text-pink-600 mb-1"></i>
+                                <div class="font-semibold text-pink-800">500 alunos</div>
+                                <div class="text-pink-600">Ensino completo</div>
+                            </div>
+                            <div class="bg-purple-50 p-3 rounded-lg">
+                                <i class="fas fa-chart-line text-purple-600 mb-1"></i>
+                                <div class="font-semibold text-purple-800">IDEB 5.5</div>
+                                <div class="text-purple-600">Anos finais</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Botão personalizado para Dolores Belém -->
+                    <button id="showDoloresBelemBtn" class="school-btn school-btn-dolores w-full mb-4">
+                        <i class="fas fa-chart-bar"></i>
+                        <span id="doloresBelemBtnText">Analisar Dados</span>
+                        <div id="doloresBelemSpinner" class="enhanced-spinner hidden"></div>
+                    </button>
+                    
+                    <!-- Conteúdo detalhado da Escola 2 (inicialmente oculto) -->
+                    <div id="doloresBelemContent" class="hidden fade-in">
+                        <div class="bg-gradient-to-r from-pink-50 to-red-50 p-4 rounded-lg mb-4">
+                            <h3 class="font-semibold text-gray-800 mb-2">
+                                <i class="fas fa-chart-pie mr-2 text-blue-500"></i>
+                                Análise Institucional
+                            </h3>
+                            <p class="text-gray-700 whitespace-pre-line" id="doloresBelemSummary"></p>
+                        </div>
+                        
+                        <div class="border-t pt-4">
+                            <details class="cursor-pointer">
+                                <summary class="font-semibold text-gray-700 mb-2 hover:text-pink-600">
+                                    <i class="fas fa-database mr-2"></i>
+                                    Ver Dados Completos
+                                </summary>
+                                <div class="bg-gray-50 p-4 rounded-lg mt-2 max-h-64 overflow-auto">
+                                    <pre class="text-sm text-gray-600 whitespace-pre-wrap" id="doloresBelemOriginalText"></pre>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Simulador Interativo -->
+        <section id="simulator" class="simulator-card fade-in">
+            <div class="text-center mb-8">
+                <div class="bg-white p-4 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-calculator text-3xl text-orange-600"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Simulador de Comparação</h2>
+                <p class="text-lg text-gray-700">Análise inteligente das características e estratégias das escolas</p>
+            </div>
+            
+            <!-- Painel de controle do simulador -->
+            <div class="bg-white rounded-lg p-6 mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <h3 class="font-semibold text-gray-700 mb-3">
+                            <i class="fas fa-sliders-h mr-2"></i>
+                            Parâmetros de Comparação
+                        </h3>
+                        <div class="space-y-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" id="compareGestao" checked class="mr-2 text-indigo-600">
+                                <span>Estratégias de Gestão</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" id="compareInfraestrutura" checked class="mr-2 text-indigo-600">
+                                <span>Infraestrutura e Recursos</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" id="compareDesempenho" checked class="mr-2 text-indigo-600">
+                                <span>Indicadores de Desempenho</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" id="compareApoioPresencial" checked class="mr-2 text-indigo-600">
+                                <span><strong>Apoio Presencial</strong></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold text-gray-700 mb-3">
+                            <i class="fas fa-target mr-2"></i>
+                            Foco da Análise
+                        </h3>
+                        <select id="analysisType" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                            <option value="geral">Comparação Geral</option>
+                            <option value="apoio" selected>Apoio Presencial (Foco Principal)</option>
+                            <option value="desafios">Desafios e Soluções</option>
+                            <option value="resultados">Resultados Alcançados</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <button id="compareBtn" class="compare-btn">
+                        <i class="fas fa-sync-alt mr-2"></i>
+                        <span id="compareBtnText">Gerar Análise Comparativa</span>
+                        <div id="compareSpinner" class="enhanced-spinner hidden ml-2"></div>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Resultados da Comparação -->
+        <div id="comparisonSection" class="enhanced-card hidden fade-in">
+            <div class="text-center mb-6">
+                <div class="bg-gradient-success p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-chart-line text-2xl text-white"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800">Análise Comparativa Detalhada</h2>
+                <p class="text-gray-600">Com foco especial no apoio presencial</p>
+            </div>
+            
+            <div id="comparisonResults" class="text-gray-700">
+                <!-- Conteúdo da comparação será gerado aqui pelo JavaScript -->
+            </div>
+            
+            <!-- Insights sobre apoio presencial -->
+            <div class="mt-8 p-6 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg border-l-4 border-indigo-500">
+                <h3 class="text-xl font-semibold text-indigo-800 mb-3">
+                    <i class="fas fa-lightbulb mr-2"></i>
+                    Insights sobre Apoio Presencial
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-semibold text-indigo-700 mb-2">Impacto Direto</h4>
+                        <ul class="text-sm text-indigo-600 space-y-1">
+                            <li>• Frequência escolar de 91%</li>
+                            <li>• Zero casos de agressão física</li>
+                            <li>• Engajamento familiar elevado</li>
+                            <li>• Conhecimento individual dos alunos</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-indigo-700 mb-2">Estratégias Chave</h4>
+                        <ul class="text-sm text-indigo-600 space-y-1">
+                            <li>• Pedagogia da presença</li>
+                            <li>• Diálogo constante com comunidade</li>
+                            <li>• Intervenção imediata em conflitos</li>
+                            <li>• Acompanhamento personalizado</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-16 text-center py-8 border-t border-gray-200">
+            <div class="flex justify-center items-center space-x-6 mb-4">
+                <i class="fas fa-graduation-cap text-2xl text-indigo-600"></i>
+                <span class="text-lg font-semibold text-gray-700">Portal de Gestão Educacional</span>
+            </div>
+            <p class="text-gray-500 text-sm">
+                Desenvolvido com foco no apoio presencial especializado para transformar a educação.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Textos brutos fornecidos pelo usuário
+        const texto1 = `1. Perfil da Diretora e da Escola
+Diretora: Jaqueline Aparecida da Cunha Camargo, 43 anos, com formação em matemática e pedagogia. Iniciou sua carreira como professora de matemática em 2005, atuou como coordenadora pedagógica por 8 anos e vice-diretora antes de se tornar diretora.
+Escola: PEI Maria das Dores Viana, localizada no bairro rural de Itapiúna, Eldorado, Vale do Ribeira. Atualmente, a diretora está na escola há 3 anos. É uma escola PEI (Programa Ensino Integral), com jornada de 9 horas diárias. Possui 140 alunos, o que permite à diretora conhecer todos pelo nome e individualmente.
+2. Desafios Iniciais da Transição para PEI e Pós-Pandemia (2022)
+Ao assumir a direção em 2022, a escola estava em um período de transição de parcial para PEI, somado aos desafios pós-pandemia.
+Adaptação dos Alunos: Dificuldade em manter os alunos na escola por 9 horas, pois não estavam acostumados ao modelo PEI. "foi difícil fazer esses alunos querer ficar na pei porque nossa escola de escola parcial uma escola que estava vindo póspandemia aí mudou tudo mudou pra escola p 9 horas dentro da escola".
+Problemas de Convivência e Indisciplina: Os alunos não estavam acostumados a conviver todos juntos em sala de aula, gerando muita indisciplina, brigas, agressão física (dentro da sala e no portão), falta de conduta e desrespeito às regras.
+Defasagem de Idade e Aprendizagem: Presença de alunos com idade defasada (e.g., 17 anos no 9º ano, 15-16 anos no 6º ano) misturados com crianças na idade correta, o que contribuía para a indisciplina e dificuldades de aprendizagem. "a maioria desses alunos indisciplinados são aqueles alunos que eu já falei que tem idade defasada dificuldade de aprendizagem".
+Rotinas Inadequadas da Equipe de Funcionários: A equipe de funcionários estava acostumada a rotinas inaceitáveis em um ambiente público, como atrasos, café da manhã prolongado durante o horário de trabalho, computadores com filmes e programas de TV, e tarefas administrativas atrasadas (prestações de contas de 2018, prontuários de alunos concluíntes de 3-4 anos, vida funcional de professores). "funcionários acostumados a uma rotina tá com eh rotinas assim que inadmissível dentro de um lugar público".
+Infraestrutura Física: Necessidade de reformas urgentes, como arrumar banheiros (privadas quebradas, sem porta) e limpar a área externa da escola (cheia de mato).
+Contexto Social dos Alunos: Alunos de famílias carentes, muitos pais analfabetos ou que trabalham na roça (bananal, pupunha), o que limita o apoio domiciliar aos estudos dos filhos. "nossos alunos vem de famílias carentes alguns pais são analfabetos não consegue dar apoio para os alunos para os filhos em casa".
+3. Estratégias e Soluções Implementadas
+A diretora implementou uma série de estratégias multifacetadas para reverter o quadro inicial:
+3.1. Combate à Indisciplina e Melhoria do Clima Escolar
+Diálogo e Mobilização da Comunidade: Realização de reuniões de pais (iniciando em fevereiro de 2022 com o tema "Indisciplina: o que fazer com os filhos de vocês?"), rodas de conversa e palestras. Uma dinâmica de autoajuda com barbante foi usada para mostrar o "pedido de socorro" da escola.
+Envolvimento dos Pais: Reuniões mais curtas e frequentes (mensalmente em sala de aula). Os pais se mostraram receptivos: "pais pode contar comigo diretora chama que eu venho".
+Normas de Convivência: Os professores trabalharam com os alunos na criação de normas de convivência.
+Aulas Engajadoras: Foco em aulas mais "chamativas", "legais", "divertidas" e participativas, que os alunos percebam que farão diferença em suas vidas.
+Apoio Pedagógico Diferenciado: Professores começaram a ver alunos indisciplinados "com outros olhos" e a oferecer atividades diferenciadas, plataformas digitais, e incentivar a autonomia na aprendizagem. "a partir do momento que ele consegue fazer ele deixa de ser indisciplinado".
+Gestão de Conflitos: Mediação e diálogo para resolver conflitos. "hoje é para ouvir o aluno ele assina o livro e tem sim tem medidas de suspensão mas são coisas mínimas não tenho mais agressão física na escola nunca mais mais de ano que eu não tenho briga na saída".
+Consequências e Registros: Aplicação de medidas disciplinares (suspensão mínima) e registro de ocorrências em livro ata. Comunicação constante com os pais. Encaminhamento de casos mais graves ao Conselho Tutelar ou Diretoria de Ensino.
+3.2. Reorganização e Alinhamento da Equipe
+Mapeamento de Atribuições: Reuniões com funcionários para ler a legislação e definir as atribuições de cada um, registrando tudo em livro ata. "li a legislação atribuição de cada funcionário você funcionário da Secretaria você faz isso isso você é funcionária do pátio você faz isso".
+Cobrança de Rotinas: Implementação de cobrança de prazos e horários, registro de faltas não comunicadas (BFE).
+Reuniões Estratégicas: Quatro coordenadores (um geral e três de área) realizam reuniões por área para estudar materiais e utilizar recursos digitais.
+Apoio da Supervisão: O supervisor de ensino ofereceu apoio na legislação, orientando a seguir as normas.
+Melhoria Contínua: Todas as prestações de conta e prontuários de alunos foram regularizados. Atrasos em vidas funcionais de professores ainda estão sendo trabalhados.
+Mudança Física na Secretaria: Quebra do balcão interno para criar atendimento externo e visível do pátio, usando recursos do PDDE Paulista. "elas ficavam interna e fechavam a janelinha e não atendiam ninguém".
+3.3. Fomento à Aprendizagem e Engajamento dos Alunos
+Frequência e Engajamento: A frequência dos alunos é de 91%. Eles "adoram vir para a escola" e os pais comunicam rapidamente as faltas. A frequência é um dos principais índices monitorados diariamente ("aluno presente").
+Tecnologia e Plataformas: Aprendizagem mediada por tecnologia, com plataformas específicas para cada disciplina, monitoradas pelo BI (Boletim Informativo Painel Escola Total). A escola busca se manter no "verde" nos indicadores.
+Tutoria e Individualização: Cada professor tutor é responsável por cerca de 10 alunos ("tutorandos"), acompanhando seu desempenho nas plataformas, redações e leituras. O tutor agenda o uso de tablets e celulares da escola para alunos sem equipamento em casa.
+Recompensa e Incentivo: A tutoria coletiva de sexta-feira ("dia de brincar") só acontece se as tarefas das plataformas estiverem concluídas. No último fim de semana do mês, há piqueniques fora da escola como recompensa.
+Premiação e Reconhecimento: Certificados e "saquinhos de doce ou bombom" são entregues aos alunos destaque em reuniões de pais bimestrais (LeIA, Matific, Khan Academy). "os pais ficam felizes também tiram fotos".
+Pedagogia da Presença: A diretora pratica a "pedagogia da presença", andando pelos corredores, no pátio, conversando com os alunos, assistindo aulas e acompanhando o progresso individual. "eu tô junta aonde meu aluno tá eu tô também".
+Feedback Formativo com Professores: Realização de feedback formativo olho no olho com os professores após a observação das aulas, focando no clima da sala, sugerindo metodologias ativas (vídeos, jogos). Em casos de aulas mal preparadas, a diretora registra em livro ata de ocorrência e exige justificativa do professor.
+4. Resultados e Destaques
+Fim da Indisciplina e Agressões: A escola não registra mais casos de agressão física há mais de um ano. A indisciplina foi superada.
+Altíssima Frequência: Alunos são frequentes e gostam de ir à escola.
+Engajamento na Aprendizagem: Alunos envolvidos na aprendizagem, utilizando plataformas e participando ativamente.
+Melhora na Organização Administrativa: Prestações de conta e prontuários de alunos em dia, rotinas de funcionários estabelecidas.
+Alunos de Destaque:Sibele: Aluna artista, 2º lugar no estado em concurso de desenho ("A China na minha vida"), teve desenho publicado em livro, ganhou tablet e certificação em São Paulo.
+Gabriele: Aluna destaque no SARESP, selecionada para intercâmbio de 3 meses na Austrália através do projeto "Prontos pro Mundo" (primeiro ano do projeto no estado), após curso de inglês e prova de proficiência.
+Maira: Aluna destaque em esportes, trouxe medalha na final regional em Santos (2022).
+Projeto "Recurso Sustentável": Maquete desenvolvida na escola foi destaque na diretoria de ensino de Registro e foi apresentada na EFAP.
+5. Mensagem para Outros Diretores
+A diretora enfatiza a importância da dedicação, paixão e rigor na gestão:
+Faça com Amor e Carinho: "tudo que você quiser fazer faça Mas faça com amor com carinho".
+Dedicação Total: Não se prender a horários ou calendários, sacrificando sábados e domingos para a escola. Chegar antes e sair depois dos outros.
+Modelagem da Equipe: Construir a equipe ideal ou, se não for possível mudar, "coloque regras coloque disciplinas coloque rotinas".
+Registro e Documentação: Registrar todas as ações (livros ata de alinhamento de funcionário, professores, ocorrências de alunos, disciplinares), dando ciência aos envolvidos.
+Busca por Apoio: Não hesitar em pedir ajuda à supervisão ou outros órgãos quando necessário, sempre se baseando na legislação. "quem trabalha comigo é a legislação sempre dentro da legislação dentro da Lei".
+Conhecimento dos Alunos: Conhecer todos os alunos pelo nome, suas individualidades, e manter um canal aberto de diálogo.
+Pedagogia da Presença: Estar junto com os alunos e professores em todos os momentos e atividades. "estar junto com o seu aluno estar junto com o seu professor isso eu faço com muito amor com muito carinho e dedicação".
+Em resumo, o relato de Jaqueline demonstra como uma gestão apaixonada, rigorosa e focada na mobilização da comunidade, na valorização da equipe e na individualização do ensino pode transformar uma escola rural, superando desafios significativos de disciplina e aprendizagem, e alcançando resultados notáveis.`;
+
+        const texto2 = `E.E. Profª Dolores Belém Novaes,OLORES BELEM NOVAES PROFESSORA
+PEI
+Diretoria de Ensino: SERTAOZINHOCarga Horária - PEI: 9HCódigo identificador da escola (CIE): 22676RUA FRANCISCO FRANKLIN DA SILVA, 299 , RUA CEP: 14180-000Bairro: CENTROMunicípio: PONTAL(16) 39531126E022676A@EDUCACAO.SP.GOV.BR
+Gestores
+FunçãoNomeVice-Diretor(a)Ariane Flavia PapiniDiretor(a)Claudia Giroldo SiqueiraCoordenador(a)Edson Messias do NascimentoCoordenador(a)Eliana Andrucioli NiniCoordenador(a)Fabiane Elidia DiasVice-Diretor(a)Raquel Regina MariCoordenador(a)Vanessa Ferreira Lopes
+Origem: SEDUC / Data de atualização: 04/2025
+Anos finais
+Nota no
+IDEB
+
+
+5.50
+Nota no
+IDESP
+
+
+2.64
+Ensino Médio
+Nota no
+IDEB
+
+
+4.00
+Nota no
+IDESP
+
+
+2.44
+IDEB do Estado (2021) - Anos Iniciais: 6,1 | Anos Finais: 5,3 | Ensino Médio: 4,4
+IDESP do Estado (2021) - Anos Iniciais: 4,47 | Anos Finais: 3,13 | Ensino Médio: 2,13
+
+IDEB - Origem: INEP / Data de atualização: 2022
+IDESP - Origem: SEDUC / Data de atualização: 2022
+Alunos
+500 Estudantes
+Faixa etáriaAnos FinaisEnsino Médio06 a 10 anos9-11 a 14 anos265815 a 17 anos2213acima dos 18 anos-3
+Itinerário FormativoOrigem: SEDUC / Data de atualização: 04/2025
+Total de Turmas
+15 Turmas
+Anos FinaisEnsino Médio87
+Origem: SEDUC / Data de atualização: 04/2025
+Docentes
+Exibir 10
+25
+50
+100
+ resultados por página
+Pesquisar
+FunçãoDisciplinaMóduloNomeProfessor(a)Projeto de Apoio ao Protagonismo EstudantilAnos IniciaisAna Cláudia Ramos da SilvaProfessor(a)Ensino ColaborativoAnos IniciaisDominic Agostinho TiagoProfessor(a)Sala de LeituraAnos IniciaisNatalia Viviane de Sousa PereiraProfessor(a)Práticas ExperimentaisAnos FinaisAdriana Aparecida Cantolini FaquimProfessor(a)Educação FinanceiraAnos FinaisAdriana Aparecida Cantolini FaquimProfessor(a)EletivasAnos FinaisAdriana Aparecida Cantolini FaquimProfessor(a)CiênciasAnos FinaisAdriana Aparecida Cantolini FaquimProfessor(a)HistóriaAnos FinaisAntonio Donizeti SariProfessor(a)RoboticaAnos FinaisCamila Marquesi LucasProfessor(a)EletivasAnos FinaisCristiane Cantolini Carnelos
+Mostrando de 1 até 10 de 93 registros
+Anterior12345…10Próximo
+Origem: SEDUC / Data de atualização: 04/2025
+
+Repasses PDDE por ano
+2019202020212022202320242025R$ 164.350,01R$ 110.038,50R$ 313.480,70R$ 208.047,92R$ 199.866,69R$ 169.505,90R$ 124.517,12
+Para mais informações, clique aqui
+
+
+Infraestrutura
+Ambientes de Aprendizagem
+
+Salas de Aula
+16 Sala de Aula
+Outras salas
+1 Sala de Atividades
+1 Sala de Leitura
+Esporte
+1 Quadra Coberta
+2 Quadra Descoberta
+Laboratório
+1 Laboratório de Ciências Física e Biológica
+1 Laboratório de Informática
+1 Sala de Robótica
+Outros Ambientes
+
+Cozinha
+1 Cozinha
+1 Despensa
+Banheiros
+1 Banheiro Adequado
+2 Banheiro Aluno
+2 Banheiro Funcionários
+Outros
+8 Dependência Administrativa
+2 Espaço Livre
+3 Sala Para Docência
+Conectividade
+1 Banda Larga - 100 Mbps
+1 Oferece Internet
+1 Rede Local A Cabo
+Origem: SEDUC / Data de atualização: 04/2025
+Equipamentos
+AlunosComputadores (Para Alunos)
+14 aparelhos
+Internet (Uso dos Alunos)
+1 aparelho
+Tablet Aluno
+36 aparelhos
+GeraisAparelho de Som
+2 aparelhos
+Aparelho de Televisao
+19 aparelhos
+Aparelhos de Wifi/Access Points
+5 aparelhos
+Computadores (Uso Administrativo)
+8 aparelhos
+Computadores de Mesa, Portáteis e Tablets da Escola
+1 aparelho
+Computadores Portateis
+67 aparelhos
+Impressora Multifuncional
+5 aparelhos
+Internet (Uso Administrativo)
+1 aparelho
+Internet (Uso Pedagogico)
+1 aparelho
+Lousa Digital
+1 aparelho
+Maquina Fotografica Filmadora
+1 aparelho
+Projetor Multimidia Data Show
+6 aparelhos
+Rede Local
+1 aparelho
+Retroprojetor
+1 aparelho
+Origem: SEDUC / Data de atualização: 04/2025
+Serviços oferecidos
+Transporte
+75 alunos
+Alimentação escolar
+500 alunos
+
+Escola atendida pelo município,`;
+
+        // Obtém referências aos elementos HTML
+        const showMariaDoresBtn = document.getElementById('showMariaDoresBtn');
+        const mariaDoresBtnText = document.getElementById('mariaDoresBtnText');
+        const mariaDoresSpinner = document.getElementById('mariaDoresSpinner');
+        const mariaDoresContent = document.getElementById('mariaDoresContent');
+        const mariaDoresSummary = document.getElementById('mariaDoresSummary');
+        const mariaDoresOriginalText = document.getElementById('mariaDoresOriginalText');
+
+        const showDoloresBelemBtn = document.getElementById('showDoloresBelemBtn');
+        const doloresBelemBtnText = document.getElementById('doloresBelemBtnText');
+        const doloresBelemSpinner = document.getElementById('doloresBelemSpinner');
+        const doloresBelemContent = document.getElementById('doloresBelemContent');
+        const doloresBelemSummary = document.getElementById('doloresBelemSummary');
+        const doloresBelemOriginalText = document.getElementById('doloresBelemOriginalText');
+
+        const compareBtn = document.getElementById('compareBtn');
+        const compareBtnText = document.getElementById('compareBtnText');
+        const compareSpinner = document.getElementById('compareSpinner');
+        const comparisonSection = document.getElementById('comparisonSection');
+        const comparisonResults = document.getElementById('comparisonResults');
+
+        // Preenche os elementos <pre> com os textos originais
+        mariaDoresOriginalText.textContent = texto1;
+        doloresBelemOriginalText.textContent = texto2;
+
+        // Função auxiliar para mostrar/esconder o spinner de carregamento
+        function setLoading(buttonTextElement, spinnerElement, isLoading) {
+            if (isLoading) {
+                buttonTextElement.classList.add('hidden');
+                spinnerElement.classList.remove('hidden');
+            } else {
+                buttonTextElement.classList.remove('hidden');
+                spinnerElement.classList.add('hidden');
+            }
+        }
+
+        // Animação suave para elementos que aparecem
+        function animateElement(element) {
+            element.classList.add('fade-in');
+        }
+
+        // Função para simular carregamento
+        function simulateLoading(duration = 2000) {
+            return new Promise(resolve => setTimeout(resolve, duration));
+        }
+
+        // Dados pré-definidos para as escolas (baseados nas informações fornecidas)
+        const mariaDoresData = {
+            summary: `🏫 **PEI Maria das Dores Viana** - Transformação através da Pedagogia da Presença
+
+**Perfil da Gestão:**
+• Diretora: Jaqueline Aparecida da Cunha Camargo (43 anos)
+• Formação: Matemática e Pedagogia  
+• Experiência: 8 anos como coordenadora + vice-diretora
+• **DIFERENCIAL**: Conhece todos os 140 alunos pelo nome
+
+**Apoio Presencial em Ação:**
+✅ **Pedagogia da Presença**: "eu tô junta aonde meu aluno tá eu tô também"
+✅ **Frequência excepcional**: 91% - alunos "adoram vir para a escola"
+✅ **Zero agressões físicas** há mais de 1 ano
+✅ **Engajamento familiar**: Pais receptivos "pode contar comigo diretora"
+
+**Estratégias Presenciais Implementadas:**
+🎯 Reuniões mensais presenciais com pais
+🎯 Feedback formativo "olho no olho" com professores  
+🎯 Mediação direta de conflitos através do diálogo
+🎯 Acompanhamento individual do progresso de cada aluno
+🎯 Tutoria personalizada (1 tutor para 10 alunos)
+
+**Resultados Transformadores:**
+📈 De escola com indisciplina generalizada para ambiente acolhedor
+📈 Alunos premiados em concursos estaduais e internacionais
+📈 Organização administrativa 100% regularizada`,
+
+            details: `A escola PEI Maria das Dores Viana representa um exemplo extraordinário de como o APOIO PRESENCIAL pode transformar completamente uma instituição educacional.
+
+CONTEXTO INICIAL (2022):
+• Transição pós-pandemia para modelo PEI
+• Indisciplina generalizada e agressões físicas
+• Funcionários com rotinas inadequadas
+• Infraestrutura deficiente
+• Famílias carentes com pais analfabetos
+
+ESTRATÉGIAS DE APOIO PRESENCIAL:
+
+1. **PEDAGOGIA DA PRESENÇA**:
+   - Diretora circula pelos corredores e pátio constantemente
+   - Conhece todos os 140 alunos individualmente
+   - Assiste aulas e oferece feedback imediato
+   - "estar junto com o seu aluno estar junto com o seu professor"
+
+2. **ENGAJAMENTO COMUNITÁRIO**:
+   - Reuniões presenciais mensais com pais
+   - Dinâmicas de autoajuda com barbante
+   - Comunicação direta: "pais pode contar comigo diretora"
+   - Mobilização efetiva da comunidade
+
+3. **GESTÃO PRESENCIAL DA EQUIPE**:
+   - Reuniões para definir atribuições via legislação
+   - Feedback formativo "olho no olho" com professores
+   - Registro detalhado de todas as ações
+   - Mudança física da secretaria para maior visibilidade
+
+RESULTADOS MENSURÁVEIS:
+✅ Frequência: 91% (alunos "adoram vir para a escola")
+✅ Indisciplina: ZERO casos de agressão há mais de 1 ano
+✅ Engajamento: Pais participativos e comunicativos
+✅ Destaque: Alunos premiados nacional e internacionalmente
+
+O diferencial desta escola está na presença constante e intencional da gestão, criando um ambiente de confiança, diálogo e transformação social.`
+        };
+
+        const doloresBelemData = {
+            summary: `🏛️ **E.E. Profª Dolores Belém Novaes** - Potencial para Apoio Presencial
+
+**Perfil Institucional:**
+• Localização: Pontal, Sertãozinho - Região central
+• Modalidade: PEI (Programa Ensino Integral)
+• Estudantes: 500 alunos (3,5x maior que Maria das Dores)
+• Gestão: Equipe robusta com 2 vice-diretores + 4 coordenadores
+
+**Indicadores de Desempenho:**
+📊 **IDEB Anos Finais**: 5.5 (acima da média estadual 5.3)
+📊 **IDEB Ensino Médio**: 4.0 (próximo à média estadual 4.4)
+📊 **IDESP**: 2.64 (Anos Finais) | 2.44 (Ensino Médio)
+
+**Infraestrutura Robusta:**
+🏫 16 salas de aula + laboratórios especializados
+🏫 Quadras cobertas e descobertas
+🏫 Laboratório de Robótica e Informática
+🏫 67 computadores portáteis + 36 tablets
+🏫 Internet banda larga 100 Mbps
+
+**Oportunidades para Apoio Presencial:**
+🎯 **Escala**: 500 alunos precisam de acompanhamento individualizado
+🎯 **Diversidade**: Anos Finais + Ensino Médio requerem estratégias diferenciadas  
+🎯 **Recursos**: Infraestrutura permite implementar tutoria presencial
+🎯 **Equipe**: 6 gestores podem dividir responsabilidades de presença
+
+**Potencial de Transformação:**
+Com a implementação das estratégias de apoio presencial da Maria das Dores, esta escola poderia:
+• Elevar ainda mais seus indicadores IDEB/IDESP
+• Reduzir defasagem idade-série
+• Aumentar engajamento familiar
+• Potencializar uso da infraestrutura disponível`,
+
+            details: `A E.E. Profª Dolores Belém Novaes apresenta um perfil institucional sólido com grande potencial para implementação de estratégias de apoio presencial.
+
+ANÁLISE INSTITUCIONAL:
+
+1. **PERFIL EDUCACIONAL**:
+   - Escola PEI completa (Anos Finais + Ensino Médio)
+   - 500 estudantes distribuídos em 15 turmas
+   - Corpo docente de 93 profissionais
+   - Gestão com 6 líderes (diretor + 2 vices + 4 coordenadores)
+
+2. **DESEMPENHO ACADÊMICO**:
+   - IDEB 5.5 (Anos Finais) - ACIMA da média estadual
+   - IDEB 4.0 (Ensino Médio) - próximo à média estadual
+   - Potencial para crescimento com apoio presencial
+
+3. **INFRAESTRUTURA DIFERENCIADA**:
+   - 16 salas de aula (vs 140 alunos da Maria das Dores)
+   - Laboratórios especializados (Ciências, Informática, Robótica)
+   - Tecnologia avançada (67 notebooks + 36 tablets)
+   - Conectividade robusta (100 Mbps)
+
+4. **OPORTUNIDADES DE APOIO PRESENCIAL**:
+
+   **Gestão de Escala**: 
+   - Com 500 alunos, cada gestor poderia acompanhar ~83 estudantes
+   - Sistema de tutoria presencial seria mais desafiador mas transformador
+
+   **Aproveitamento da Infraestrutura**:
+   - Laboratórios para atividades presenciais diferenciadas
+   - Tecnologia para monitoramento individual
+   - Espaços diversos para encontros com famílias
+
+   **Potencial de Impacto**:
+   - Elevação dos índices IDEB/IDESP
+   - Redução da defasagem idade-série (identificada nos dados)
+   - Maior aproveitamento do investimento em infraestrutura
+
+RECOMENDAÇÕES para implementar Apoio Presencial:
+✅ Dividir os 500 alunos entre os 6 gestores
+✅ Implementar sistema de tutoria presencial
+✅ Usar laboratórios para atividades de engajamento
+✅ Criar espaços de diálogo com as famílias
+✅ Monitorar frequência e desempenho individual
+
+A escola possui todas as condições para ser um exemplo de apoio presencial em grande escala.`
+        };
+
+        const comparisonData = {
+            similaridades: "Ambas são escolas PEI (Programa Ensino Integral) da rede estadual de São Paulo, com jornada de 9 horas diárias. Ambas atendem comunidades que necessitam de apoio pedagógico diferenciado e possuem estrutura para implementar estratégias de gestão presencial.",
+            
+            diferenciais_maria_dores: "A PEI Maria das Dores Viana se destaca pela implementação efetiva da 'Pedagogia da Presença'. Com 140 alunos, a diretora consegue conhecer cada estudante pelo nome e acompanhar individualmente seu progresso. Os resultados são extraordinários: 91% de frequência, zero casos de agressão física há mais de um ano, e alunos que 'adoram vir para a escola'. O apoio presencial se manifesta através de reuniões mensais com pais, feedback direto com professores, mediação de conflitos e acompanhamento personalizado.",
+            
+            potencial_dolores_belem: "A E.E. Dolores Belém Novaes, com 500 alunos e infraestrutura robusta (laboratórios, tecnologia avançada), tem potencial imenso para escalar as estratégias de apoio presencial. Com 6 gestores na equipe, cada um poderia acompanhar cerca de 83 alunos, implementando tutoria presencial sistemática. A escola já possui IDEB 5.5 (acima da média estadual) e poderia alcançar excelência com apoio presencial estruturado.",
+            
+            apoio_presencial_insights: "O apoio presencial não é apenas 'estar presente fisicamente', mas criar vínculos intencionais e transformadores. Na Maria das Dores, isso se traduz em conhecer cada aluno pelo nome, estar 'junto aonde o aluno está', e criar uma cultura de diálogo constante. O resultado é uma mudança completa no clima escolar: de indisciplina generalizada para ambiente acolhedor onde alunos querem estar.",
+            
+            recomendacoes: "1) Implementar sistema de tutoria presencial (1 gestor para cada grupo de alunos); 2) Criar momentos sistemáticos de 'Pedagogia da Presença' - gestores circulando pelos espaços; 3) Estabelecer reuniões presenciais regulares com famílias; 4) Usar a infraestrutura tecnológica para monitorar e personalizar o acompanhamento; 5) Formar gestores na metodologia de feedback 'olho no olho'; 6) Documentar todas as ações para replicabilidade.",
+            
+            conclusao: "O apoio presencial é o grande diferencial transformador da educação. Enquanto a Maria das Dores comprova os resultados em pequena escala, a Dolores Belém tem potencial para demonstrar que essa metodologia funciona também em grande escala. O investimento em presença gera retorno em engajamento, aprendizagem e transformação social. A combinação de gestão presencial + infraestrutura adequada + equipe preparada pode revolucionar a educação pública."
+        };
+
+        // Função para resumir escola (versão offline com dados pré-definidos)
+        async function summarizeSchool(schoolText, schoolName) {
+            // Simula carregamento
+            await simulateLoading(1500);
+            
+            if (schoolName.includes("Maria das Dores")) {
+                return mariaDoresData.summary;
+            } else {
+                return doloresBelemData.summary;
+            }
+        }
+
+        // Função para comparar escolas (versão offline)
+        async function compareSchools(text1, text2) {
+            // Simula carregamento
+            await simulateLoading(2000);
+            
+            return comparisonData;
+        }
+
+        // Adiciona um listener de evento para o botão "Explorar Detalhes" da Escola Maria das Dores
+        showMariaDoresBtn.addEventListener('click', async () => {
+            if (mariaDoresContent.classList.contains('hidden')) {
+                setLoading(mariaDoresBtnText, mariaDoresSpinner, true);
+                try {
+                    const summary = await summarizeSchool(texto1, "Maria das Dores");
+                    mariaDoresSummary.innerHTML = summary.replace(/\n/g, '<br>');
+                    mariaDoresContent.classList.remove('hidden');
+                    animateElement(mariaDoresContent);
+                    mariaDoresBtnText.innerHTML = '<i class="fas fa-eye-slash"></i><span class="ml-2">Ocultar Detalhes</span>';
+                } catch (error) {
+                    mariaDoresSummary.innerHTML = `
+                        <div class="bg-red-50 p-4 rounded-lg border border-red-200">
+                            <h4 class="font-semibold text-red-800 mb-2">📋 Resumo da PEI Maria das Dores Viana</h4>
+                            <p class="text-red-700">${mariaDoresData.details}</p>
+                        </div>
+                    `;
+                    mariaDoresContent.classList.remove('hidden');
+                    console.error('Usando dados locais para Maria das Dores');
+                } finally {
+                    setLoading(mariaDoresBtnText, mariaDoresSpinner, false);
+                }
+            } else {
+                mariaDoresContent.classList.add('hidden');
+                mariaDoresBtnText.innerHTML = '<i class="fas fa-info-circle"></i><span class="ml-2">Explorar Detalhes</span>';
+            }
+        });
+
+        // Adiciona um listener de evento para o botão "Analisar Dados" da Escola Dolores Belém
+        showDoloresBelemBtn.addEventListener('click', async () => {
+            if (doloresBelemContent.classList.contains('hidden')) {
+                setLoading(doloresBelemBtnText, doloresBelemSpinner, true);
+                try {
+                    const summary = await summarizeSchool(texto2, "Dolores Belém");
+                    doloresBelemSummary.innerHTML = summary.replace(/\n/g, '<br>');
+                    doloresBelemContent.classList.remove('hidden');
+                    animateElement(doloresBelemContent);
+                    doloresBelemBtnText.innerHTML = '<i class="fas fa-chart-bar"></i><span class="ml-2">Ocultar Dados</span>';
+                } catch (error) {
+                    doloresBelemSummary.innerHTML = `
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <h4 class="font-semibold text-blue-800 mb-2">📊 Análise da E.E. Dolores Belém Novaes</h4>
+                            <p class="text-blue-700">${doloresBelemData.details}</p>
+                        </div>
+                    `;
+                    doloresBelemContent.classList.remove('hidden');
+                    console.error('Usando dados locais para Dolores Belém');
+                } finally {
+                    setLoading(doloresBelemBtnText, doloresBelemSpinner, false);
+                }
+            } else {
+                doloresBelemContent.classList.add('hidden');
+                doloresBelemBtnText.innerHTML = '<i class="fas fa-chart-bar"></i><span class="ml-2">Analisar Dados</span>';
+            }
+        });
+
+        // Adiciona um listener de evento para o botão "Gerar Análise Comparativa"
+        compareBtn.addEventListener('click', async () => {
+            if (comparisonSection.classList.contains('hidden')) {
+                setLoading(compareBtnText, compareSpinner, true);
+                comparisonResults.innerHTML = `
+                    <div class="text-center py-8">
+                        <div class="bg-gradient-primary p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                            <i class="fas fa-cogs text-2xl text-white animate-spin"></i>
+                        </div>
+                        <p class="text-lg text-gray-600">Gerando análise comparativa personalizada...</p>
+                        <p class="text-sm text-gray-500 mt-2">Processando dados com foco no apoio presencial</p>
+                    </div>
+                `;
+                comparisonSection.classList.remove('hidden');
+                animateElement(comparisonSection);
+
+                try {
+                    const comparisonData = await compareSchools(texto1, texto2);
+                    // Formata e exibe os resultados da comparação com design aprimorado
+                    comparisonResults.innerHTML = `
+                        <div class="space-y-6">
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                                <h3 class="text-xl font-semibold text-blue-800 mb-3">
+                                    <i class="fas fa-handshake mr-2"></i>Similaridades Identificadas
+                                </h3>
+                                <p class="text-blue-700 leading-relaxed">${comparisonData.similaridades}</p>
+                            </div>
+
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500">
+                                <h3 class="text-xl font-semibold text-purple-800 mb-3">
+                                    <i class="fas fa-star mr-2"></i>Diferenciais da PEI Maria das Dores Viana
+                                </h3>
+                                <p class="text-purple-700 leading-relaxed">${comparisonData.diferenciais_maria_dores}</p>
+                            </div>
+
+                            <div class="bg-pink-50 p-6 rounded-lg border-l-4 border-pink-500">
+                                <h3 class="text-xl font-semibold text-pink-800 mb-3">
+                                    <i class="fas fa-rocket mr-2"></i>Potencial da E.E. Dolores Belém Novaes
+                                </h3>
+                                <p class="text-pink-700 leading-relaxed">${comparisonData.potencial_dolores_belem}</p>
+                            </div>
+
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
+                                <h3 class="text-xl font-semibold text-green-800 mb-3">
+                                    <i class="fas fa-lightbulb mr-2"></i>Insights sobre Apoio Presencial
+                                </h3>
+                                <p class="text-green-700 leading-relaxed">${comparisonData.apoio_presencial_insights}</p>
+                            </div>
+
+                            <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-500">
+                                <h3 class="text-xl font-semibold text-yellow-800 mb-3">
+                                    <i class="fas fa-clipboard-list mr-2"></i>Recomendações Práticas
+                                </h3>
+                                <p class="text-yellow-700 leading-relaxed">${comparisonData.recomendacoes}</p>
+                            </div>
+
+                            <div class="bg-gray-50 p-6 rounded-lg border-l-4 border-gray-500">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-3">
+                                    <i class="fas fa-check-circle mr-2"></i>Conclusão da Análise
+                                </h3>
+                                <p class="text-gray-700 leading-relaxed">${comparisonData.conclusao}</p>
+                            </div>
+                        </div>
+                    `;
+                } catch (error) {
+                    comparisonResults.innerHTML = `
+                        <div class="text-center py-8">
+                            <div class="bg-red-100 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                                <i class="fas fa-exclamation-triangle text-2xl text-red-600"></i>
+                            </div>
+                            <p class="text-lg text-red-600">Erro ao gerar a comparação</p>
+                            <p class="text-sm text-red-500 mt-2">Tente novamente em alguns momentos</p>
+                        </div>
+                    `;
+                    console.error('Erro ao comparar escolas:', error);
+                } finally {
+                    setLoading(compareBtnText, compareSpinner, false);
+                }
+            } else {
+                comparisonSection.classList.add('hidden');
+            }
+        });
+
+        // Navegação suave para as seções
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animação das métricas ao carregar
+        window.addEventListener('load', () => {
+            const metricFills = document.querySelectorAll('.metric-fill');
+            metricFills.forEach(fill => {
+                const width = fill.style.width;
+                fill.style.width = '0%';
+                setTimeout(() => {
+                    fill.style.width = width;
+                }, 500);
+            });
+        });
+
+        // Menu mobile toggle
+        const mobileMenuBtn = document.querySelector('.md\\:hidden button');
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                // Implementar menu mobile se necessário
+                console.log('Menu mobile clicado');
+            });
+        }
+    </script>
+</body>
+</html>
