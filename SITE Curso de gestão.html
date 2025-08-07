@@ -373,6 +373,117 @@
             font-size: 0.9rem;
             color: #666;
         }
+
+        /* Novas animações brilhantes */
+        .glow-reveal {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glow-reveal::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 215, 0, 0.4) 30%, 
+                rgba(255, 255, 255, 0.8) 50%, 
+                rgba(255, 215, 0, 0.4) 70%, 
+                transparent 100%);
+            animation: shine 2s ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .sparkle-text {
+            position: relative;
+            animation: sparkle 3s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { text-shadow: 0 0 5px rgba(255, 215, 0, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.6); }
+        }
+
+        .pulse-glow {
+            animation: pulseGlow 2s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { 
+                color: #f59e0b;
+                filter: drop-shadow(0 0 5px rgba(245, 158, 11, 0.5));
+            }
+            50% { 
+                color: #fbbf24;
+                filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.8));
+                transform: scale(1.1);
+            }
+        }
+
+        .reveal-animation {
+            animation: revealFromBottom 0.8s ease-out forwards;
+        }
+
+        @keyframes revealFromBottom {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .topic-item-reveal {
+            animation: topicReveal 0.6s ease-out forwards;
+        }
+
+        @keyframes topicReveal {
+            0% {
+                opacity: 0;
+                transform: translateX(-20px);
+                background-color: rgba(102, 126, 234, 0.1);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+                background-color: transparent;
+            }
+        }
+
+        .enhanced-card.show-content {
+            animation: cardExpand 0.5s ease-out;
+        }
+
+        @keyframes cardExpand {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        /* Efeito de brilho nos botões */
+        .school-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .school-btn.loading {
+            animation: buttonPulse 1s infinite;
+        }
+
+        @keyframes buttonPulse {
+            0%, 100% { box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
+            50% { box-shadow: 0 8px 25px rgba(102, 126, 234, 0.8); }
+        }
     </style>
 </head>
 <body>
@@ -993,11 +1104,11 @@
             
             // Manipuladores de eventos para os botões
             document.getElementById('showMariaDoresBtn').addEventListener('click', function() {
-                toggleContent('mariaDores', 'Explorar Detalhes', 'Ocultar Detalhes');
+                toggleContent('mariaDores', 'Detalhes', 'Ocultar');
             });
             
             document.getElementById('showDoloresBelemBtn').addEventListener('click', function() {
-                toggleContent('doloresBelem', 'Analisar Dados', 'Ocultar Dados');
+                toggleContent('doloresBelem', 'Dados', 'Ocultar');
             });
             
             document.getElementById('simularApoioBtn').addEventListener('click', function() {
@@ -1009,22 +1120,60 @@
                 const content = document.getElementById(escola + 'Content');
                 const btnText = document.getElementById(escola + 'BtnText');
                 const spinner = document.getElementById(escola + 'Spinner');
+                const btn = document.getElementById('show' + escola.charAt(0).toUpperCase() + escola.slice(1) + 'Btn');
+                const card = btn.closest('.enhanced-card');
                 
                 if (content.classList.contains('hidden')) {
                     // Mostra spinner durante o "carregamento"
                     btnText.textContent = 'Carregando...';
                     spinner.classList.remove('hidden');
+                    btn.classList.add('loading');
                     
                     // Simula tempo de carregamento
                     setTimeout(function() {
                         content.classList.remove('hidden');
-                        content.classList.add('animate__animated', 'animate__fadeIn');
+                        content.classList.add('reveal-animation');
+                        card.classList.add('show-content');
+                        
+                        // Adiciona efeito de brilho
+                        const glowDiv = content.querySelector('.bg-gradient-to-r');
+                        if (glowDiv) {
+                            glowDiv.classList.add('glow-reveal');
+                        }
+                        
+                        // Anima os tópicos individualmente
+                        const topicItems = content.querySelectorAll('.topic-item');
+                        topicItems.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.classList.add('topic-item-reveal');
+                            }, index * 100);
+                        });
+                        
                         btnText.textContent = textHide;
                         spinner.classList.add('hidden');
+                        btn.classList.remove('loading');
+                        
+                        // Remove classes de animação após completar
+                        setTimeout(() => {
+                            content.classList.remove('reveal-animation');
+                            card.classList.remove('show-content');
+                            if (glowDiv) {
+                                glowDiv.classList.remove('glow-reveal');
+                            }
+                        }, 2000);
+                        
                     }, 800);
                 } else {
+                    // Esconde o conteúdo
                     content.classList.add('hidden');
+                    content.classList.remove('reveal-animation');
                     btnText.textContent = textShow;
+                    
+                    // Remove animações dos tópicos
+                    const topicItems = content.querySelectorAll('.topic-item');
+                    topicItems.forEach(item => {
+                        item.classList.remove('topic-item-reveal');
+                    });
                 }
             }
             
@@ -1204,7 +1353,6 @@
     </script>
 </body>
 </html>
-<body>
     <!-- Elemento de vídeo flutuante que acompanha a rolagem -->
     <div class="floating-video">
         <!-- Espaço reservado para o seu vídeo -->
